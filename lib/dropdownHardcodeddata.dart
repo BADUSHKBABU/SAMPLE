@@ -51,12 +51,13 @@ class _DropdownHardcodedState extends State<DropdownHardcoded> {
                empnamecontroller.text=Selectedemployee;
              });
            }, child: Text("save")),
-        
-            TextFormField(
-                controller: empnamecontroller,
+        SizedBox(height: 20,),
+            Text(
+                 empnamecontroller.text,
 
         
               ),
+              SizedBox(height: 20,),
 
 
               ///DROPDOWN LIST CONTAINS DATAS FROM FIREBASE ///
