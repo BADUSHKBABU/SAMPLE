@@ -1,4 +1,4 @@
-import 'dart:js_interop';
+
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -38,7 +38,6 @@ class _DropdownHardcodedState extends State<DropdownHardcoded> {
               onChanged: (e){
               setState(() {
                 Selectedemployee=e;
-
               });
             },
               value: Selectedemployee,
@@ -54,9 +53,7 @@ class _DropdownHardcodedState extends State<DropdownHardcoded> {
         SizedBox(height: 20,),
             Text(
                  empnamecontroller.text,
-
-        
-              ),
+             ),
               SizedBox(height: 20,),
 
 
@@ -71,10 +68,12 @@ class _DropdownHardcodedState extends State<DropdownHardcoded> {
               for(int i=0;i<length;i++)
               {
                 DocumentSnapshot documentsnapshot=snapshot.data!.docs[i];
-                projectlist.add(DropdownMenuItem(child: Text(documentsnapshot.id),
+                projectlist.add(
+                    DropdownMenuItem(child: Text(documentsnapshot.id),
                   value: "${snapshot.data!.docs[i]}",)
                 );
-              }return DropdownButton(
+              }
+              return DropdownButton(
                   items: projectlist,
                   onChanged: (e){setState(()
                   {
@@ -86,7 +85,8 @@ class _DropdownHardcodedState extends State<DropdownHardcoded> {
                 hint: Text("select project"),
               );
               }
-              else{
+              else
+              {
                 return CircularProgressIndicator();
               }
             }
