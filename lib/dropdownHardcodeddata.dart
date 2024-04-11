@@ -2,6 +2,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class DropdownHardcoded extends StatefulWidget {
@@ -22,6 +23,7 @@ class _DropdownHardcodedState extends State<DropdownHardcoded> {
   final empnamecontroller=TextEditingController();
   final CollectionReference collectionReference=FirebaseFirestore.instance.collection("project");
   var Selectedemployee;
+  TextEditingController workcontroller=TextEditingController();
   List EmpnameLst=["badush","dona","aiswarya","tom","Likhitha","radhika","bijin"," robin","shini"];
   @override
   Widget build(BuildContext context) {
@@ -32,7 +34,8 @@ class _DropdownHardcodedState extends State<DropdownHardcoded> {
           children: [
         
             Text("Dropdown hardcode list "),
-            DropdownButton(items: EmpnameLst.map((value) => DropdownMenuItem(
+            DropdownButton(items: EmpnameLst.map((value) =>
+                DropdownMenuItem(
                 child: Text(value),
                 value: value)).toList(),
               onChanged: (e){
@@ -70,27 +73,35 @@ class _DropdownHardcodedState extends State<DropdownHardcoded> {
                 DocumentSnapshot documentsnapshot=snapshot.data!.docs[i];
                 projectlist.add(
                     DropdownMenuItem(child: Text(documentsnapshot.id),
-                  value: "${snapshot.data!.docs[i]}",)
+                  value: "${documentsnapshot.id}")
                 );
               }
-              return DropdownButton(
-                  items: projectlist,
-                  onChanged: (e){setState(()
-                  {
-                selectedwork=e;
-                print(selectedwork);
-                  }
-              );
-                    },value: selectedwork,
-                hint: Text("select project"),
+              return Column(
+                children: [
+                  DropdownButton(
+                      items: projectlist,
+                      onChanged: (e){setState(() {selectedwork=e;});},
+                      value: selectedwork,
+                    hint: Text("select project"),
+                  ),
+                  ElevatedButton(onPressed: (){
+                    setState(() {
+                      workcontroller.text=selectedwork;
+                      Text(workcontroller.text);
+                    });
+                  }, child: Text("save")),
+Text(workcontroller.text)
+                ],
+                
               );
               }
-              else
+
+             else
               {
                 return CircularProgressIndicator();
               }
             }
-            )
+            ),
           ],
         ),
       ),
